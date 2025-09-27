@@ -20,7 +20,76 @@ Note: There may be multiple available spots for a particular vehicle. It does no
 */
 
 const whereCanIPark = function (spots, vehicle) {
-  // Code here!
+  const vehicleType = {
+    regular: "R",
+    small: "S",
+    motorcycle: "M",
+  };
+
+  const yourVehicleType = vehicleType[vehicle];
+  let X = 0;
+  let Y = 0;
+  let available = false;
+
+  switch (yourVehicleType) {
+    case "R":
+      spots.forEach((raw) => {
+        if (available) {
+          return;
+        }
+        raw.forEach((spot) => {
+          if (available) {
+            return;
+          }
+          if (spot === "R") {
+            available = true;
+            X = raw.indexOf(spot);
+            Y = spots.indexOf(raw);
+          }
+        });
+      });
+      break;
+    case "S":
+      spots.forEach((raw) => {
+        if (available) {
+          return;
+        }
+        raw.forEach((spot) => {
+          if (available) {
+            return;
+          }
+          if (spot === "R" || spot === "S") {
+            available = true;
+            X = raw.indexOf(spot);
+            Y = spots.indexOf(raw);
+          }
+        });
+      });
+      break;
+    case "M":
+      spots.forEach((raw) => {
+        if (available) {
+          return;
+        }
+        raw.forEach((spot) => {
+          if (available) {
+            return;
+          }
+          if (spot === "R" || spot === "S" || spot === "M") {
+            available = true;
+            X = raw.indexOf(spot);
+            Y = spots.indexOf(raw);
+          }
+        });
+      });
+      break;
+  }
+
+  if (available) {
+    return [X, Y];
+  } else {
+    return false;
+  }
 };
 
 console.log(
