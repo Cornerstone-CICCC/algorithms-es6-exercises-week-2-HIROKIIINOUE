@@ -9,7 +9,24 @@ Create a function named organizeInstructors that will receive an array of instru
 */
 
 const organizeInstructors = function (instructors) {
-  // Put your solution here
+  const courses = instructors.map((instructor) => instructor.course);
+  const uniqueCourse = new Set(courses);
+  const uniqueCourseArray = [...uniqueCourse];
+  const result = {};
+
+  instructors.forEach((instructor) => {
+    uniqueCourseArray.forEach((course) => {
+      if (instructor.course === course) {
+        if (!result[course]) {
+          result[course] = [instructor.name];
+        } else {
+          result[course] = [...result[course], instructor.name];
+        }
+      }
+    });
+  });
+
+  return result;
 };
 
 console.log(
@@ -20,6 +37,7 @@ console.log(
     { name: "Donald", course: "Web" },
   ])
 ); // { iOS: ["Samuel"], Web: ["Victoria", "Karim", "Donald"]}
+
 console.log(
   organizeInstructors([
     { name: "Brendan", course: "Blockchain" },
